@@ -2,6 +2,7 @@
     "java.configuration.updateBuildConfiguration": "automatic",
     "python.formatting.provider": "black",
     "python.analysis.extraPaths": [
-        "./python/src/abstract_factory"
+        "./python/src/abstract_factory",
+        "./python/src/factory"
     ]
 }
