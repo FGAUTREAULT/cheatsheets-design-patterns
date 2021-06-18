@@ -1,10 +1,10 @@
-export interface Product {
-  operation(args: Number[]): void;
+export interface IProduct {
+  operation(args: Number[]): String;
 }
 
 export type PRODUCT_TYPE = 'A' | 'B' | 'EMPTY';
 
-export abstract class AProduct implements Product {
+export abstract class AProduct implements IProduct {
   private _type: PRODUCT_TYPE = 'EMPTY';
   private _result: String = '';
 
@@ -20,7 +20,7 @@ export abstract class AProduct implements Product {
   public set result(value: String) {
     this._result = value;
   }
-  abstract operation(args: Number[]): void;
+  abstract operation(args: Number[]): String;
 }
 
 export class EmptyProduct extends AProduct {
