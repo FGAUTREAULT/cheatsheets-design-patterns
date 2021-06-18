@@ -1,14 +1,17 @@
 export interface Product {
-  operation(param?: any): void;
+  operation(args: Number[]): void;
 }
 
-export class DefaultProduct implements Product {
-  private _type: String = '';
+export type PRODUCT_TYPE = 'A' | 'B' | 'EMPTY';
+
+export abstract class AProduct implements Product {
+  private _type: PRODUCT_TYPE = 'EMPTY';
   private _result: String = '';
-  public get type(): String {
+
+  public get type(): PRODUCT_TYPE {
     return this._type;
   }
-  public set type(value: String) {
+  public set type(value: PRODUCT_TYPE) {
     this._type = value;
   }
   public get result(): String {
@@ -17,30 +20,42 @@ export class DefaultProduct implements Product {
   public set result(value: String) {
     this._result = value;
   }
-  operation = (param?: any) => {
-    return 'Method of ConcreteProductA';
+  abstract operation(args: Number[]): void;
+}
+
+export class EmptyProduct extends AProduct {
+  operation = (args: Number[]) => {
+    return `Not product could be created with type ${
+      this.result
+    } and args ${args.join(', ')}`;
   };
 }
 
-export class ConcreteProductA extends DefaultProduct {
-  operation = (param?: any) => {
-    return 'Method of ConcreteProductA';
+export class ConcreteProductA extends AProduct {
+  operation = (args: Number[]) => {
+    return `Method of ConcreteProductA ran with args ${args.join(', ')}`;
   };
 }
 
-export class ConcreteProductB implements Product {
-  operation = (param?: any) => {
-    return 'Method of ConcreteProductB';
+export class ConcreteProductB extends AProduct {
+  operation = (args: Number[]) => {
+    return `Method of ConcreteProductB ran with args ${args.join(', ')}`;
   };
 }
 
+/**
+ * Factory is not only a way the create objects but to run also a define construction pattern
+ */
 export class ProductFactory {
-  public static createProduct(type: string): Product {
+  public static createProduct(type: PRODUCT_TYPE, args: Number[]): AProduct {
+    let product = new EmptyProduct();
     if (type === 'A') {
-      return new ConcreteProductA();
+      product = new ConcreteProductA();
     } else if (type === 'B') {
-      return new ConcreteProductB();
+      product = new ConcreteProductB();
     }
-    return new DefaultProduct();
+    product.type = type;
+    product.result = product.operation(args);
+    return product;
   }
 }
