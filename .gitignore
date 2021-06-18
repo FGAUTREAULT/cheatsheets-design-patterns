@@ -348,3 +348,7 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+java/design-patterns/.settings/org.eclipse.core.resources.prefs
+java/design-patterns/.settings/org.eclipse.jdt.apt.core.prefs
+java/design-patterns/.settings/org.eclipse.jdt.core.prefs
+java/design-patterns/.settings/org.eclipse.m2e.core.prefs
